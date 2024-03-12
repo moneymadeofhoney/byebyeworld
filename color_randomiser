@@ -1,0 +1,59 @@
+import pygame
+import random
+
+# Цвета
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+# Инициализация pygame
+pygame.init()
+
+# Установка полноэкранного режима
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+# Список точек
+points = []
+
+# Текущий цвет
+color = BLACK
+
+# Флаг рисования
+drawing = False
+
+# Цикл обработки событий
+running = True
+while running:
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      running = False
+    elif event.type == pygame.MOUSEBUTTONDOWN:
+      # Нажатие левой кнопки мыши
+      if event.button == 1:
+        drawing = True
+        points.clear()
+      # Нажатие правой кнопки мыши
+      elif event.button == 3:
+        points.clear()
+        color = BLACK
+        screen.fill(WHITE)
+    elif event.type == pygame.MOUSEBUTTONUP:
+      # Отпускание левой кнопки мыши
+      if event.button == 1:
+        drawing = False
+        # Изменение цвета
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        screen.fill(color)
+    elif event.type == pygame.KEYDOWN:
+      running = False
+
+  # Рисование линии
+  if drawing:
+    points.append(event.pos)
+    if len(points) > 1:
+      pygame.draw.lines(screen, color, False, points, 5)
+
+  # Обновление экрана
+  pygame.display.update()
+
+# Завершение работы pygame
+pygame.quit()
