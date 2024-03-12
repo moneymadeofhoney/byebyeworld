@@ -1,0 +1,39 @@
+import random
+import turtle
+
+# Цвета
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+# Начальные координаты
+x = 0
+y = 0
+
+# Угол поворота
+angle = 0
+
+# Длина шага
+step_size = 10
+
+# Функция для рисования кривой
+def draw_curve(length):
+  for i in range(length):
+    # Случайное изменение угла
+    angle += random.randint(-30, 30)
+
+    # Перемещение черепахи
+    turtle.setheading(angle)
+    turtle.forward(step_size)
+
+# Настройка черепахи
+turtle.setup(width=600, height=600)
+turtle.pencolor(BLACK)
+turtle.fillcolor(WHITE)
+turtle.begin_fill()
+
+# Рисование контура
+for i in range(10):
+  draw_curve(random.randint(10, 20))
+
+turtle.end_fill()
+turtle.done()
