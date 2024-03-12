@@ -1,0 +1,37 @@
+def count_symbols(filename):
+  """
+  Функция для подсчета количества символов в тексте.
+
+  Args:
+    filename: Имя текстового файла.
+
+  Returns:
+    None.
+  """
+
+  # Чтение текста из файла
+  try:
+    with open(filename, "r") as file:
+      text = file.read()
+  except FileNotFoundError:
+    print(f"Файл '{filename}' не найден.")
+    return
+
+  # Подсчет количества символов
+  symbol_counts = {}
+  for symbol in text:
+    symbol_counts[symbol] = symbol_counts.get(symbol, 0) + 1
+
+  # Вывод результатов
+  print("-" * 40)
+  print(f"Количество символов в файле '{filename}':")
+  print("-" * 40)
+  for symbol, count in symbol_counts.items():
+    print(f"{symbol}: {count}")
+  print("-" * 40)
+
+# Ввод имени файла
+filename = input("Введите имя текстового файла: ")
+
+# Вызов функции
+count_symbols(filename)
