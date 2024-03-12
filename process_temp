@@ -1,0 +1,27 @@
+import psutil
+import time
+
+# Обновление информации каждые 2 секунды
+DELAY = 2
+
+# Цикл обновления
+while True:
+  # Загрузка процессора
+  cpu_usage = psutil.cpu_percent()
+
+  # Занятая оперативная память
+  memory_usage = psutil.virtual_memory().percent
+
+  # Очистка экрана
+  print("\033c")
+
+  # Вывод информации
+  print("-" * 40)
+  print("Загрузка системы:")
+  print("-" * 40)
+  print(f"Процессор: {cpu_usage:.1f}%")
+  print(f"Оперативная память: {memory_usage:.1f}%")
+  print("-" * 40)
+
+  # Ожидание
+  time.sleep(DELAY)
