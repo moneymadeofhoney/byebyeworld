@@ -1,0 +1,65 @@
+def find_symbol(filename, n):
+  """
+  Функция для поиска символа в файле и вычисления чисел Фибоначчи.
+
+  Args:
+    filename: Имя файла.
+    n: Порядковый номер символа.
+
+  Returns:
+    Список чисел Фибоначчи, меньших M^3, где M - порядковый номер 
+    найденного символа в строке.
+  """
+
+  with open(filename, "r") as f:
+    text = f.read()
+
+  # Поиск символа
+  symbol = None
+  symbol_counter = 0
+  for i, char in enumerate(text):
+    symbol_counter += 1
+    if symbol_counter == n:
+      symbol = char
+      break
+
+  if symbol is None:
+    raise ValueError(f"Символ с порядковым номером {n} не найден.")
+
+  # Поиск порядкового номера символа в строке
+  line_start = 0
+  line_counter = 0
+  for i, char in enumerate(text):
+    if char == "\n":
+      line_counter += 1
+      if symbol in text[line_start:i]:
+        break
+      line_start = i + 1
+
+  symbol_in_line = 0
+  for i in range(line_start, i + 1):
+    if text[i] == symbol:
+      break
+    symbol_in_line += 1
+
+  # Вычисление чисел Фибоначчи
+  fibs = []
+  a, b = 0, 1
+  while b**3 < symbol_in_line**3:
+    fibs.append(a)
+    a, b = b, a + b
+
+  return fibs
+
+
+# Ввод имени файла и порядкового номера
+filename = input("Введите имя файла: ")
+n = int(input("Введите порядковый номер символа: "))
+
+# Поиск символа и вычисление чисел Фибоначчи
+fibs = find_symbol(filename, n)
+
+# Вывод результата
+print(f"Символ с порядковым номером {n}: {symbol}")
+print(f"Порядковый номер символа в строке: {symbol_in_line}")
+print(f"Числа Фибоначчи, меньшие M^3: {fibs}")
